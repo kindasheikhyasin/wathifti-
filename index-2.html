@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wathifti · وظيفتي</title>
+<meta name="description" content="Wathifti is an Arabic-first job readiness platform for Jordan and MENA: AI mock interviews, CV review, and job matching. وظيفتي: تدرّب على الانترفيو، صلّح الـ CV، واحصل على الوظيفة.">
+<meta property="og:title" content="Wathifti · وظيفتي">
+<meta property="og:description" content="Don't just apply for the job. Get it. AI interview practice and CV review for job seekers in Jordan and MENA.">
+<meta property="og:url" content="https://wathifti.com">
+<meta property="og:type" content="website">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Tajawal:wght@300;400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0B1F3A;
+  --navy-mid: #122847;
+  --navy-light: #1E3A5F;
+  --gold: #C9A84C;
+  --gold-light: #E2C47A;
+  --white: #FAFAF8;
+  --off-white: #F0EDE6;
+  --gray: #8899AA;
+  --green: #2ECC71;
+  --blue: #5BA4CF;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { background:var(--navy); font-family:'DM Sans',sans-serif; color:var(--white); overflow-x:hidden; }
+
+/* ── NAV ── */
+.nav {
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  padding:20px 60px;
+  display:flex; align-items:center; justify-content:space-between;
+  direction:ltr;
+  transition:background 0.3s;
+}
+.nav.scrolled {
+  background:rgba(11,31,58,0.95);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(201,168,76,0.1);
+}
+.nav-logo {
+  font-family:'Tajawal',sans-serif; font-weight:900; font-size:24px;
+  color:var(--white); text-decoration:none;
+}
+.nav-logo span { color:var(--gold); }
+.nav-links { display:flex; gap:32px; align-items:center; }
+.nav-link {
+  font-size:13px; color:rgba(255,255,255,0.6);
+  text-decoration:none; letter-spacing:0.5px; transition:color 0.2s;
+}
+.nav-link:hover { color:var(--gold); }
+.nav-cta {
+  padding:10px 24px;
+  background:var(--gold); color:var(--navy);
+  border-radius:100px; font-size:13px; font-weight:700;
+  text-decoration:none; transition:all 0.2s;
+  font-family:'DM Sans',sans-serif;
+}
+.nav-cta:hover { background:var(--gold-light); transform:translateY(-1px); }
+.lang-toggle {
+  padding:8px 14px;
+  background:transparent; color:var(--white);
+  border:1px solid rgba(255,255,255,0.2); border-radius:100px;
+  font-size:13px; font-weight:700; cursor:pointer;
+  font-family:'Tajawal','DM Sans',sans-serif;
+  transition:border-color 0.2s, color 0.2s;
+}
+.lang-toggle:hover { border-color:var(--gold); color:var(--gold); }
+@media(max-width:640px){
+  .nav { padding:16px 20px; }
+  .nav-links { gap:12px; }
+  .nav-links .nav-link { display:none; }
+}
+
+/* ── ENGLISH TYPOGRAPHY ── */
+html[lang="en"] .hero-title,
+html[lang="en"] .section-title,
+html[lang="en"] .cta-title { font-family:'Playfair Display',serif; letter-spacing:-0.5px; }
+html[lang="en"] .nav-link,
+html[lang="en"] .btn-gold,
+html[lang="en"] .btn-outline,
+html[lang="en"] .hero-sub,
+html[lang="en"] .stat-label,
+html[lang="en"] .stat-box-lbl,
+html[lang="en"] .step-title,
+html[lang="en"] .step-desc,
+html[lang="en"] .vs-cell,
+html[lang="en"] .pricing-feat,
+html[lang="en"] .pricing-btn,
+html[lang="en"] .cta-sub,
+html[lang="en"] .cta-perk,
+html[lang="en"] .cta-btn { font-family:'DM Sans',sans-serif; }
+
+/* ── HERO ── */
+.hero {
+  min-height:100vh;
+  display:grid;
+  grid-template-columns:1fr 280px;
+  align-items:center;
+  gap:40px;
+  padding:140px 60px 80px;
+  position:relative;
+  overflow:hidden;
+}
+@media(max-width:900px){
+  .hero { grid-template-columns:1fr; padding:120px 24px 60px; }
+  .hero-stats-col { display:none; }
+}
+.hero-bg {
+  position:absolute; inset:0; z-index:0;
+  background:
+    radial-gradient(ellipse 70% 60% at 70% 40%, rgba(201,168,76,0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 20% 80%, rgba(91,164,207,0.04) 0%, transparent 60%);
+}
+.hero-grid {
+  position:absolute; inset:0; z-index:0; opacity:0.03;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.8) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.8) 1px, transparent 1px);
+  background-size:60px 60px;
+}
+
+/* Hero Left */
+.hero-content { position:relative; z-index:2; }
+.hero-badge {
+  display:inline-flex; align-items:center; gap:10px;
+  padding:8px 18px;
+  border:1px solid rgba(201,168,76,0.3);
+  border-radius:100px; margin-bottom:36px;
+  opacity:0; animation:fadeUp 0.8s ease forwards 0.2s;
+}
+.hero-badge-dot { width:6px; height:6px; background:var(--gold); border-radius:50%; animation:pulse 2s infinite; }
+.hero-badge span { font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--gold); font-family:'DM Sans',sans-serif; }
+@keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+
+.hero-title {
+  font-family:'Tajawal',sans-serif; font-weight:900;
+  font-size:clamp(44px, 6vw, 80px);
+  line-height:1.1;
+  margin-bottom:24px;
+  opacity:0; animation:fadeUp 1s ease forwards 0.4s;
+}
+.hero-title .gold { color:var(--gold); }
+.hero-title .outline {
+  -webkit-text-stroke:2px rgba(255,255,255,0.25);
+  color:transparent;
+}
+
+.hero-sub {
+  font-family:'Tajawal',sans-serif; font-size:18px; font-weight:300;
+  color:rgba(255,255,255,0.55);
+  line-height:1.8; margin-bottom:44px; max-width:520px;
+  opacity:0; animation:fadeUp 1s ease forwards 0.6s;
+}
+
+.hero-btns {
+  display:flex; gap:14px; flex-wrap:wrap;
+  opacity:0; animation:fadeUp 1s ease forwards 0.8s;
+}
+.btn-gold {
+  padding:16px 36px;
+  background:var(--gold); color:var(--navy);
+  border-radius:12px; font-size:16px; font-weight:700;
+  text-decoration:none; font-family:'Tajawal',sans-serif;
+  transition:all 0.2s;
+}
+.btn-gold:hover { background:var(--gold-light); transform:translateY(-2px); box-shadow:0 16px 40px rgba(201,168,76,0.25); }
+.btn-outline {
+  padding:16px 36px;
+  border:1px solid rgba(255,255,255,0.2); color:rgba(255,255,255,0.7);
+  border-radius:12px; font-size:16px;
+  text-decoration:none; font-family:'Tajawal',sans-serif;
+  transition:all 0.2s;
+}
+.btn-outline:hover { border-color:var(--gold); color:var(--gold); }
+
+/* Hero Right — Stat Cards */
+.hero-stats-col {
+  position:relative; z-index:2;
+  display:flex; flex-direction:column; gap:14px;
+  opacity:0; animation:fadeUp 1s ease forwards 1s;
+}
+.stat-card {
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:16px; padding:20px 24px;
+  backdrop-filter:blur(8px);
+  transition:border-color 0.3s, transform 0.3s;
+}
+.stat-card:hover { border-color:rgba(201,168,76,0.25); transform:translateX(-4px); }
+.stat-num {
+  font-family:'Playfair Display',serif; font-size:38px; font-weight:900;
+  color:var(--gold); display:block; line-height:1;
+}
+.stat-label {
+  font-family:'Tajawal',sans-serif; font-size:13px;
+  color:rgba(255,255,255,0.45); margin-top:6px;
+}
+
+/* Scroll hint */
+.scroll-hint {
+  position:absolute; bottom:36px; left:50%;
+  transform:translateX(-50%); z-index:2;
+  display:flex; flex-direction:column; align-items:center; gap:8px;
+  opacity:0; animation:fadeIn 1s ease forwards 1.5s;
+}
+.scroll-line { width:1px; height:44px; background:linear-gradient(180deg,rgba(201,168,76,0.6),transparent); }
+.scroll-txt { font-size:9px; letter-spacing:3px; text-transform:uppercase; color:rgba(255,255,255,0.2); font-family:'DM Sans',sans-serif; }
+
+/* ── TICKER ── */
+.ticker { background:var(--gold); padding:12px 0; overflow:hidden; direction:ltr; white-space:nowrap; }
+.ticker-inner { display:inline-flex; animation:ticker 22s linear infinite; }
+.ticker-item { font-family:'DM Sans',sans-serif; font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--navy); padding:0 28px; }
+@keyframes ticker { from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+/* ── PROBLEM SECTION ── */
+.section { padding:100px 60px; }
+@media(max-width:640px){ .section { padding:60px 24px; } }
+.eyebrow { font-size:10px; letter-spacing:4px; text-transform:uppercase; color:var(--gold); margin-bottom:16px; }
+.section-title {
+  font-family:'Tajawal',sans-serif; font-weight:900;
+  font-size:clamp(28px,4vw,44px);
+  margin-bottom:48px; line-height:1.3;
+}
+.section-title span { color:var(--gold); }
+.section-divider { width:1px; height:1px; background:transparent; }
+
+.stats-grid {
+  display:grid; grid-template-columns:repeat(4,1fr);
+  gap:1px; background:rgba(255,255,255,0.06);
+  border-radius:20px; overflow:hidden; margin-bottom:0;
+}
+@media(max-width:700px){ .stats-grid { grid-template-columns:1fr 1fr; } }
+.stat-box {
+  background:var(--navy-mid); padding:40px 28px; text-align:center;
+  transition:background 0.2s;
+}
+.stat-box:hover { background:var(--navy-light); }
+.stat-box-num {
+  font-family:'Playfair Display',serif; font-size:52px; font-weight:900;
+  color:var(--gold); display:block; line-height:1; margin-bottom:12px;
+}
+.stat-box-lbl {
+  font-family:'Tajawal',sans-serif; font-size:14px;
+  color:rgba(255,255,255,0.45); line-height:1.5;
+}
+
+/* ── HOW IT WORKS ── */
+.how-section { padding:100px 60px; background:var(--navy-mid); }
+@media(max-width:640px){ .how-section { padding:60px 24px; } }
+.steps {
+  display:grid; grid-template-columns:repeat(4,1fr);
+  gap:24px; position:relative;
+}
+@media(max-width:800px){ .steps { grid-template-columns:1fr 1fr; } }
+.step { padding:28px 20px; text-align:center; }
+.step-icon {
+  width:60px; height:60px; border-radius:50%;
+  background:rgba(201,168,76,0.1); border:1px solid rgba(201,168,76,0.25);
+  display:flex; align-items:center; justify-content:center;
+  margin:0 auto 20px; font-size:24px;
+  transition:all 0.3s;
+}
+.step:hover .step-icon { background:var(--gold); transform:scale(1.08); }
+.step-num {
+  display:inline-block;
+  width:20px; height:20px; border-radius:50%;
+  background:var(--gold); color:var(--navy);
+  font-size:10px; font-weight:800;
+  text-align:center; line-height:20px;
+  margin-bottom:12px; font-family:'DM Sans',sans-serif;
+}
+.step-title {
+  font-family:'Tajawal',sans-serif; font-weight:700;
+  font-size:17px; margin-bottom:8px; color:var(--white);
+}
+.step-desc {
+  font-family:'Tajawal',sans-serif; font-size:13px; font-weight:300;
+  color:rgba(255,255,255,0.45); line-height:1.7;
+}
+
+/* ── VS SECTION ── */
+.vs-section { padding:100px 60px; }
+@media(max-width:640px){ .vs-section { padding:60px 24px; } }
+.vs-table {
+  border-radius:20px; overflow:hidden;
+  border:1px solid rgba(255,255,255,0.08);
+}
+.vs-head {
+  display:grid; grid-template-columns:1fr 1fr 1fr;
+  background:var(--navy-mid);
+  border-bottom:1px solid rgba(255,255,255,0.08);
+}
+.vs-head-cell { padding:20px 28px; font-size:11px; letter-spacing:2px; text-transform:uppercase; font-family:'DM Sans',sans-serif; }
+.vs-head-cell.feature { color:rgba(255,255,255,0.3); }
+.vs-head-cell.them { color:rgba(255,255,255,0.4); text-align:center; }
+.vs-head-cell.us { color:var(--gold); text-align:center; font-weight:700; }
+.vs-row {
+  display:grid; grid-template-columns:1fr 1fr 1fr;
+  border-bottom:1px solid rgba(255,255,255,0.04);
+  transition:background 0.2s;
+}
+.vs-row:last-child { border:none; }
+.vs-row:hover { background:rgba(255,255,255,0.02); }
+.vs-cell { padding:16px 28px; font-family:'Tajawal',sans-serif; font-size:15px; }
+.vs-cell.feature { color:rgba(255,255,255,0.65); font-weight:500; }
+.vs-cell.them { color:rgba(255,255,255,0.25); text-align:center; font-size:18px; }
+.vs-cell.us { color:var(--gold); text-align:center; font-size:18px; }
+
+/* ── PRICING ── */
+.pricing-section { padding:100px 60px; background:var(--navy-mid); }
+@media(max-width:640px){ .pricing-section { padding:60px 24px; } }
+.pricing-grid {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+@media(max-width:800px){ .pricing-grid { grid-template-columns:1fr; } }
+.pricing-card {
+  border-radius:20px; overflow:hidden;
+  border:1px solid rgba(255,255,255,0.08);
+  transition:transform 0.2s, border-color 0.2s;
+  background:var(--navy);
+}
+.pricing-card:hover { transform:translateY(-4px); }
+.pricing-card.featured { border-color:rgba(201,168,76,0.4); position:relative; }
+.featured-tag {
+  position:absolute; top:0; left:50%; transform:translateX(-50%);
+  background:var(--gold); color:var(--navy);
+  font-size:10px; letter-spacing:2px; text-transform:uppercase; font-weight:700;
+  padding:5px 16px; border-radius:0 0 10px 10px; font-family:'DM Sans',sans-serif;
+}
+.pricing-header { padding:32px 28px 20px; }
+.pricing-tier { font-size:10px; letter-spacing:3px; text-transform:uppercase; font-weight:600; margin-bottom:14px; font-family:'DM Sans',sans-serif; }
+.pricing-price {
+  font-family:'Playfair Display',serif; font-size:48px; font-weight:900; line-height:1;
+}
+.pricing-period { font-size:13px; color:rgba(255,255,255,0.35); margin-top:6px; font-family:'DM Sans',sans-serif; }
+.pricing-features { padding:0 28px 24px; }
+.pricing-feat {
+  padding:10px 0;
+  border-bottom:1px solid rgba(255,255,255,0.05);
+  font-family:'Tajawal',sans-serif; font-size:14px;
+  color:rgba(255,255,255,0.65);
+}
+.pricing-feat:last-child { border:none; }
+.pricing-feat::before { content:'✓ '; color:var(--gold); font-weight:700; }
+.pricing-btn {
+  display:block; margin:0 28px 28px;
+  padding:14px; text-align:center; border-radius:12px;
+  font-family:'Tajawal',sans-serif; font-weight:700; font-size:15px;
+  text-decoration:none; transition:all 0.2s;
+}
+
+/* card variants */
+.free-card .pricing-header { background:rgba(255,255,255,0.02); }
+.free-card .pricing-tier { color:rgba(255,255,255,0.4); }
+.free-card .pricing-price { color:var(--white); }
+.free-card .pricing-btn { background:rgba(255,255,255,0.07); color:var(--white); }
+.free-card .pricing-btn:hover { background:rgba(255,255,255,0.12); }
+
+.pro-card .pricing-header { background:linear-gradient(135deg,rgba(201,168,76,0.12),rgba(201,168,76,0.04)); }
+.pro-card .pricing-tier { color:var(--gold); }
+.pro-card .pricing-price { color:var(--gold); }
+.pro-card .pricing-btn { background:var(--gold); color:var(--navy); }
+.pro-card .pricing-btn:hover { background:var(--gold-light); transform:translateY(-1px); }
+
+.biz-card .pricing-header { background:rgba(46,204,113,0.06); }
+.biz-card .pricing-tier { color:#2ECC71; }
+.biz-card .pricing-price { color:#2ECC71; }
+.biz-card .pricing-btn { background:rgba(46,204,113,0.1); color:#2ECC71; border:1px solid rgba(46,204,113,0.2); }
+.biz-card .pricing-btn:hover { background:rgba(46,204,113,0.18); }
+
+/* ── WAITLIST CTA ── */
+.cta-section {
+  padding:120px 60px; text-align:center;
+  background:linear-gradient(180deg,var(--navy) 0%,#040C1A 100%);
+  position:relative; overflow:hidden;
+}
+@media(max-width:640px){ .cta-section { padding:80px 24px; } }
+.cta-glow {
+  position:absolute; width:600px; height:600px;
+  background:radial-gradient(circle,rgba(201,168,76,0.08),transparent 70%);
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  pointer-events:none;
+}
+.cta-title {
+  font-family:'Tajawal',sans-serif; font-weight:900;
+  font-size:clamp(28px,5vw,56px);
+  margin-bottom:16px; position:relative; z-index:1;
+}
+.cta-title span { color:var(--gold); }
+.cta-sub {
+  font-family:'Tajawal',sans-serif; font-size:18px; font-weight:300;
+  color:rgba(255,255,255,0.45); margin-bottom:44px;
+  position:relative; z-index:1;
+}
+.cta-form {
+  display:flex; gap:12px; max-width:460px;
+  margin:0 auto; direction:ltr; position:relative; z-index:1;
+}
+.cta-input {
+  flex:1; padding:16px 20px;
+  background:rgba(255,255,255,0.07);
+  border:1px solid rgba(255,255,255,0.14);
+  border-radius:12px; color:var(--white);
+  font-size:14px; font-family:'DM Sans',sans-serif; outline:none;
+  transition:border-color 0.2s;
+}
+.cta-input:focus { border-color:var(--gold); }
+.cta-input::placeholder { color:rgba(255,255,255,0.28); }
+.cta-btn {
+  padding:16px 28px; background:var(--gold); color:var(--navy);
+  border:none; border-radius:12px; font-size:14px; font-weight:700;
+  font-family:'DM Sans',sans-serif; cursor:pointer; white-space:nowrap;
+  transition:all 0.2s;
+}
+.cta-btn:hover { background:var(--gold-light); transform:translateY(-1px); }
+.cta-btn:disabled { opacity:0.7; cursor:wait; transform:none; }
+.cta-msg {
+  min-height:22px; margin-top:14px; position:relative; z-index:1;
+  font-family:'Tajawal','DM Sans',sans-serif; font-size:14px; color:rgba(255,255,255,0.6);
+}
+.cta-msg.ok { color:var(--green); }
+.cta-msg.err { color:#E74C3C; }
+@media(max-width:480px){ .cta-form { flex-direction:column; } }
+.cta-perks {
+  display:flex; gap:20px; justify-content:center; margin-top:20px;
+  flex-wrap:wrap; position:relative; z-index:1;
+}
+.cta-perk { font-family:'Tajawal',sans-serif; font-size:13px; color:rgba(255,255,255,0.35); }
+.cta-perk::before { content:'✓ '; color:var(--gold); }
+
+/* ── FOOTER ── */
+footer {
+  background:#040C1A; padding:44px 60px;
+  display:flex; justify-content:space-between; align-items:center;
+  direction:ltr; flex-wrap:wrap; gap:20px;
+  border-top:1px solid rgba(255,255,255,0.05);
+}
+@media(max-width:640px){ footer { padding:32px 24px; flex-direction:column; text-align:center; } }
+.footer-logo { font-family:'Tajawal',sans-serif; font-weight:900; font-size:22px; }
+.footer-logo span { color:var(--gold); }
+.footer-links { display:flex; gap:20px; flex-wrap:wrap; }
+.footer-link { font-size:12px; color:rgba(255,255,255,0.3); text-decoration:none; transition:color 0.2s; }
+.footer-link:hover { color:var(--gold); }
+.footer-copy { font-size:11px; color:rgba(255,255,255,0.15); }
+
+/* ── REVEAL ── */
+.reveal { opacity:0; transform:translateY(28px); transition:opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp { from{opacity:0;transform:translateY(24px);} to{opacity:1;transform:translateY(0);} }
+@keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="mainNav" dir="ltr">
+  <a href="#" class="nav-logo">و<span>ظ</span>يفتي</a>
+  <div class="nav-links">
+    <a href="#how" class="nav-link" data-i18n="nav.how">كيف تشتغل</a>
+    <a href="#pricing" class="nav-link" data-i18n="nav.pricing">الأسعار</a>
+    <a href="#waitlist" class="nav-link" data-i18n="nav.signup">سجّل</a>
+    <button type="button" class="lang-toggle" id="langToggle" aria-label="Switch language">EN</button>
+    <a href="#waitlist" class="nav-cta" data-i18n="nav.cta">ابدأ مجاناً</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+
+  <!-- Main content -->
+  <div class="hero-content">
+    <div class="hero-badge">
+      <div class="hero-badge-dot"></div>
+      <span data-i18n="hero.badge">Amman, Jordan · قادم قريباً</span>
+    </div>
+    <h1 class="hero-title" data-i18n="hero.title">
+      مش بس تتقدم<br>
+      <span class="gold">على وظيفة —</span><br>
+      <span class="outline">احصل عليها.</span>
+    </h1>
+    <p class="hero-sub" data-i18n="hero.sub">وظيفتي هي المنصة العربية الأولى اللي بتدربك على الانترفيو، بتصلحلك الـ CV، وبتضمن إنك توصل للوظيفة اللي بتستاهلها.</p>
+    <div class="hero-btns">
+      <a href="#waitlist" class="btn-gold" data-i18n="hero.btn1">انضم لقائمة الانتظار</a>
+      <a href="#how" class="btn-outline" data-i18n="hero.btn2">كيف تشتغل؟</a>
+    </div>
+  </div>
+
+  <!-- Stat cards -->
+  <div class="hero-stats-col">
+    <div class="stat-card">
+      <span class="stat-num">21%</span>
+      <div class="stat-label" data-i18n="hero.stat1">بطالة في الأردن</div>
+    </div>
+    <div class="stat-card">
+      <span class="stat-num">0</span>
+      <div class="stat-label" data-i18n="hero.stat2">منصة عربية بتضمن نتائج</div>
+    </div>
+    <div class="stat-card">
+      <span class="stat-num" id="counter">247+</span>
+      <div class="stat-label" data-i18n="hero.stat3">شخص سجّل هالأسبوع</div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    <span class="scroll-txt">Scroll</span>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item">وظيفتي · Wathifti</span><span class="ticker-item">✦</span>
+    <span class="ticker-item" data-i18n="ticker.1">من هون لوظيفة أحلامك</span><span class="ticker-item">✦</span>
+    <span class="ticker-item" data-i18n="ticker.2">مش بس معلومات — نتائج حقيقية</span><span class="ticker-item">✦</span>
+    <span class="ticker-item">Amman · Jordan · MENA</span><span class="ticker-item">✦</span>
+    <span class="ticker-item" data-i18n="ticker.3">AI-Powered · عربي أولاً</span><span class="ticker-item">✦</span>
+    <span class="ticker-item">وظيفتي · Wathifti</span><span class="ticker-item">✦</span>
+    <span class="ticker-item" data-i18n="ticker.1">من هون لوظيفة أحلامك</span><span class="ticker-item">✦</span>
+    <span class="ticker-item" data-i18n="ticker.2">مش بس معلومات — نتائج حقيقية</span><span class="ticker-item">✦</span>
+    <span class="ticker-item">Amman · Jordan · MENA</span><span class="ticker-item">✦</span>
+    <span class="ticker-item" data-i18n="ticker.3">AI-Powered · عربي أولاً</span><span class="ticker-item">✦</span>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section class="section reveal">
+  <p class="eyebrow" data-i18n="problem.eyebrow">The Problem · المشكلة</p>
+  <h2 class="section-title" data-i18n="problem.title">الأردن فيه موهبة. <span>بس ما في تحضير.</span></h2>
+  <div class="stats-grid">
+    <div class="stat-box"><span class="stat-box-num">21%</span><span class="stat-box-lbl" data-i18n="problem.s1">بطالة عامة في الأردن</span></div>
+    <div class="stat-box"><span class="stat-box-num">33%</span><span class="stat-box-lbl" data-i18n="problem.s2">بطالة بين الشباب</span></div>
+    <div class="stat-box"><span class="stat-box-num">28</span><span class="stat-box-lbl" data-i18n="problem.s3">جامعة بدون أدوات تحضير</span></div>
+    <div class="stat-box"><span class="stat-box-num">0</span><span class="stat-box-lbl" data-i18n="problem.s4">منصة عربية بتضمن نتائج</span></div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section" id="how">
+  <p class="eyebrow reveal" data-i18n="how.eyebrow">How It Works · كيف تشتغل</p>
+  <h2 class="section-title reveal" data-i18n="how.title">٤ خطوات — <span>من صفر لوظيفة</span></h2>
+  <div class="steps reveal">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-icon">🎯</div>
+      <div class="step-title" data-i18n="how.t1">حلّل وضعك</div>
+      <div class="step-desc" data-i18n="how.d1">بنبنيلك ملف فجوات كامل بين مهاراتك وما بتطلبه الشركات</div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-icon">📄</div>
+      <div class="step-title" data-i18n="how.t2">صلّح الـ CV</div>
+      <div class="step-desc" data-i18n="how.d2">AI بيعدّل CV تبعك حسب توقعات أصحاب العمل المحليين</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-icon">🤖</div>
+      <div class="step-title" data-i18n="how.t3">تدرّب على الانترفيو</div>
+      <div class="step-desc" data-i18n="how.d3">محاكاة انترفيو بالعربي مع تقييم فوري لكل جواب</div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-icon">💼</div>
+      <div class="step-title" data-i18n="how.t4">احصل على الوظيفة</div>
+      <div class="step-desc" data-i18n="how.d4">تقدّم على وظائف تناسب مستواك وروح الانترفيو مستعد ١٠٠٪</div>
+    </div>
+  </div>
+</section>
+
+<!-- VS GLASSDOOR -->
+<section class="vs-section reveal">
+  <p class="eyebrow">Wathifti vs The Rest</p>
+  <h2 class="section-title" data-i18n="vs.title">ليش <span>وظيفتي</span> مختلفة؟</h2>
+  <div class="vs-table">
+    <div class="vs-head">
+      <div class="vs-head-cell feature" data-i18n="vs.feature">الميزة</div>
+      <div class="vs-head-cell them">Glassdoor &amp; Others</div>
+      <div class="vs-head-cell us" data-i18n="vs.us">وظيفتي ✦</div>
+    </div>
+    <div class="vs-row"><div class="vs-cell feature" data-i18n="vs.r1">اللغة</div><div class="vs-cell them">🇺🇸</div><div class="vs-cell us">🇯🇴</div></div>
+    <div class="vs-row"><div class="vs-cell feature" data-i18n="vs.r2">النهج</div><div class="vs-cell them" data-i18n="vs.r2a">❌ معلومات فقط</div><div class="vs-cell us" data-i18n="vs.r2b">✅ تدريب + نتائج</div></div>
+    <div class="vs-row"><div class="vs-cell feature" data-i18n="vs.r3">السياق</div><div class="vs-cell them" data-i18n="vs.r3a">❌ غربي</div><div class="vs-cell us" data-i18n="vs.r3b">✅ أردني وخليجي</div></div>
+    <div class="vs-row"><div class="vs-cell feature" data-i18n="vs.r4">AI انترفيو</div><div class="vs-cell them" data-i18n="vs.none">❌ ما في</div><div class="vs-cell us" data-i18n="vs.yes">✅ موجود</div></div>
+    <div class="vs-row"><div class="vs-cell feature">CV Review</div><div class="vs-cell them" data-i18n="vs.none">❌ ما في</div><div class="vs-cell us" data-i18n="vs.yes">✅ موجود</div></div>
+    <div class="vs-row"><div class="vs-cell feature" data-i18n="vs.r6">الضمان</div><div class="vs-cell them" data-i18n="vs.none">❌ ما في</div><div class="vs-cell us" data-i18n="vs.r6b">✅ هدفنا توظيفك</div></div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-section" id="pricing">
+  <p class="eyebrow reveal" data-i18n="pricing.eyebrow">Pricing · الأسعار</p>
+  <h2 class="section-title reveal" data-i18n="pricing.title">ابدأ <span>مجاناً</span> — طوّر بأسعار تناسبك</h2>
+  <div class="pricing-grid reveal">
+    <div class="pricing-card free-card">
+      <div class="pricing-header">
+        <div class="pricing-tier" data-i18n="free.tier">Free Forever · مجاني</div>
+        <div class="pricing-price">JD 0</div>
+        <div class="pricing-period" data-i18n="free.period">بدون بطاقة ائتمان</div>
+      </div>
+      <div class="pricing-features">
+        <div class="pricing-feat" data-i18n="free.f1">تشخيص الكفاءة الوظيفية</div>
+        <div class="pricing-feat" data-i18n="free.f2">٣ انترفيوز تجريبية</div>
+        <div class="pricing-feat" data-i18n="free.f3">قالب CV واحد</div>
+        <div class="pricing-feat">Readiness Score</div>
+      </div>
+      <a href="#waitlist" class="pricing-btn" data-i18n="free.btn">ابدأ مجاناً</a>
+    </div>
+    <div class="pricing-card pro-card featured">
+      <div class="featured-tag" data-i18n="pro.tag">⭐ الأكثر شعبية</div>
+      <div class="pricing-header" style="padding-top:44px;">
+        <div class="pricing-tier" data-i18n="pro.tier">Pro · احترافي</div>
+        <div class="pricing-price">JD 8</div>
+        <div class="pricing-period" data-i18n="pro.period">شهرياً · ~$11</div>
+      </div>
+      <div class="pricing-features">
+        <div class="pricing-feat" data-i18n="pro.f1">انترفيوز AI غير محدودة</div>
+        <div class="pricing-feat" data-i18n="pro.f2">CV builder كامل + AI review</div>
+        <div class="pricing-feat">Company Culture Cards</div>
+        <div class="pricing-feat" data-i18n="pro.f4">Salary benchmarks محلية</div>
+        <div class="pricing-feat">Application tracker</div>
+        <div class="pricing-feat">Follow-up templates</div>
+      </div>
+      <a href="#waitlist" class="pricing-btn" data-i18n="pro.btn">جرّب مجاناً شهر</a>
+    </div>
+    <div class="pricing-card biz-card">
+      <div class="pricing-header">
+        <div class="pricing-tier" data-i18n="biz.tier">Business · شركات</div>
+        <div class="pricing-price">JD 40</div>
+        <div class="pricing-period" data-i18n="biz.period">شهرياً لكل شركة</div>
+      </div>
+      <div class="pricing-features">
+        <div class="pricing-feat" data-i18n="biz.f1">نشر وظائف غير محدود</div>
+        <div class="pricing-feat" data-i18n="biz.f2">تصفح مرشحين بالـ Score</div>
+        <div class="pricing-feat">Smart candidate matching</div>
+        <div class="pricing-feat">Analytics dashboard</div>
+        <div class="pricing-feat" data-i18n="biz.f5">أدوات الفرز والاختيار</div>
+      </div>
+      <a href="#waitlist" class="pricing-btn" data-i18n="biz.btn">تواصل معنا</a>
+    </div>
+  </div>
+</section>
+
+<!-- WAITLIST CTA -->
+<section class="cta-section" id="waitlist">
+  <div class="cta-glow"></div>
+  <h2 class="cta-title" data-i18n="cta.title">جاهز تحصل على <span>وظيفة أحلامك؟</span></h2>
+  <p class="cta-sub" data-i18n="cta.sub">سجّل هلق واحصل على وصول مبكر مجاني + شهر Pro مجاناً</p>
+  <form class="cta-form" id="waitlistForm" novalidate>
+    <input type="email" class="cta-input" id="waitlistEmail" name="email" placeholder="your@email.com" dir="ltr" autocomplete="email" required>
+    <button type="submit" class="cta-btn" id="waitlistBtn" data-i18n="cta.btn">انضم الآن</button>
+  </form>
+  <p class="cta-msg" id="waitlistMsg" role="status" aria-live="polite"></p>
+  <div class="cta-perks">
+    <span class="cta-perk" data-i18n="cta.p1">وصول مبكر</span>
+    <span class="cta-perk" data-i18n="cta.p2">شهر Pro مجاناً</span>
+    <span class="cta-perk" data-i18n="cta.p3">بدون بطاقة ائتمان</span>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">و<span>ظ</span>يفتي · <span style="color:rgba(255,255,255,0.3);font-size:15px;font-family:'DM Sans',sans-serif;font-weight:300;">Wathifti</span></div>
+  <div class="footer-links">
+    <a href="#" class="footer-link">@wathifti</a>
+    <a href="#" class="footer-link">TikTok</a>
+    <a href="#" class="footer-link">Instagram</a>
+    <a href="#" class="footer-link">LinkedIn</a>
+    <a href="#" class="footer-link">Facebook</a>
+  </div>
+  <div class="footer-copy">© <span id="year">2026</span> Wathifti · وظيفتي · Amman, Jordan</div>
+</footer>
+
+<script>
+/* ============================================================
+   SIGNUPS → SUPABASE
+   Paste your two values from Supabase:
+   Project Settings → API (or "API Keys")
+   - Project URL           → SUPABASE_URL
+   - anon / publishable key → SUPABASE_KEY  (safe to be public)
+   ============================================================ */
+const SUPABASE_URL = 'PASTE_SUPABASE_PROJECT_URL_HERE';
+const SUPABASE_KEY = 'PASTE_SUPABASE_ANON_OR_PUBLISHABLE_KEY_HERE';
+
+/* ── English text (Arabic is the default text in the page above) ── */
+const EN = {
+  'nav.how': 'How it works',
+  'nav.pricing': 'Pricing',
+  'nav.signup': 'Sign up',
+  'nav.cta': 'Start free',
+  'hero.badge': 'Amman, Jordan · Coming soon',
+  'hero.title': 'Don’t just apply<br><span class="gold">for the job —</span><br><span class="outline">get it.</span>',
+  'hero.sub': 'Wathifti is the first Arabic-first platform that trains you for interviews, fixes your CV, and gets you to the job you deserve.',
+  'hero.btn1': 'Join the waitlist',
+  'hero.btn2': 'How does it work?',
+  'hero.stat1': 'Unemployment in Jordan',
+  'hero.stat2': 'Arabic platforms built around results',
+  'hero.stat3': 'People signed up this week',
+  'ticker.1': 'From here to your dream job',
+  'ticker.2': 'Not just information — real results',
+  'ticker.3': 'AI-Powered · Arabic-first',
+  'problem.eyebrow': 'The Problem',
+  'problem.title': 'Jordan has talent. <span>What’s missing is preparation.</span>',
+  'problem.s1': 'Overall unemployment in Jordan',
+  'problem.s2': 'Youth unemployment',
+  'problem.s3': 'Universities without prep tools',
+  'problem.s4': 'Arabic platforms built around results',
+  'how.eyebrow': 'How It Works',
+  'how.title': '4 steps — <span>from zero to hired</span>',
+  'how.t1': 'Know where you stand',
+  'how.d1': 'We map the gaps between your skills and what companies are asking for',
+  'how.t2': 'Fix your CV',
+  'how.d2': 'AI tailors your CV to what local employers expect',
+  'how.t3': 'Practise your interview',
+  'how.d3': 'Mock interviews in Arabic or English with instant feedback on every answer',
+  'how.t4': 'Land the job',
+  'how.d4': 'Apply to roles that fit your level and walk into the interview 100% ready',
+  'vs.title': 'Why is <span>Wathifti</span> different?',
+  'vs.feature': 'Feature',
+  'vs.us': 'Wathifti ✦',
+  'vs.r1': 'Language',
+  'vs.r2': 'Approach',
+  'vs.r2a': '❌ Information only',
+  'vs.r2b': '✅ Training + results',
+  'vs.r3': 'Context',
+  'vs.r3a': '❌ Western',
+  'vs.r3b': '✅ Jordan & the Gulf',
+  'vs.r4': 'AI interviews',
+  'vs.none': '❌ None',
+  'vs.yes': '✅ Included',
+  'vs.r6': 'Our goal',
+  'vs.r6b': '✅ Getting you hired',
+  'pricing.eyebrow': 'Pricing',
+  'pricing.title': 'Start <span>free</span> — upgrade when you’re ready',
+  'free.tier': 'Free Forever',
+  'free.period': 'No credit card needed',
+  'free.f1': 'Job readiness diagnosis',
+  'free.f2': '3 mock interviews',
+  'free.f3': '1 CV template',
+  'free.btn': 'Start free',
+  'pro.tag': '⭐ Most popular',
+  'pro.tier': 'Pro',
+  'pro.period': 'per month · ~$11',
+  'pro.f1': 'Unlimited AI interviews',
+  'pro.f2': 'Full CV builder + AI review',
+  'pro.f4': 'Local salary benchmarks',
+  'pro.btn': 'Try a month free',
+  'biz.tier': 'Business',
+  'biz.period': 'per month, per company',
+  'biz.f1': 'Unlimited job posts',
+  'biz.f2': 'Browse candidates by Score',
+  'biz.f5': 'Screening and shortlisting tools',
+  'biz.btn': 'Contact us',
+  'cta.title': 'Ready to land <span>your dream job?</span>',
+  'cta.sub': 'Sign up now for free early access + a free month of Pro',
+  'cta.btn': 'Join now',
+  'cta.p1': 'Early access',
+  'cta.p2': 'Free month of Pro',
+  'cta.p3': 'No credit card needed',
+};
+
+/* Short messages for the signup form */
+const MSG = {
+  ar: { ok:'✓ مسجّل! رح نبعتلك أول ما نطلق.', dup:'✓ إيميلك مسجّل من قبل.', bad:'اكتب إيميل صحيح.', err:'صار في خطأ، جرّب مرة ثانية.', wait:'...' },
+  en: { ok:'✓ You’re in! We’ll email you at launch.', dup:'✓ You’re already on the list.', bad:'Please enter a valid email.', err:'Something went wrong. Please try again.', wait:'...' },
+};
+
+/* ── Language switching ── */
+const i18nEls = document.querySelectorAll('[data-i18n]');
+i18nEls.forEach(el => { el.dataset.ar = el.innerHTML; });   // remember the Arabic
+
+function store(get, val) {
+  try { return get ? localStorage.getItem('wathifti-lang') : localStorage.setItem('wathifti-lang', val); }
+  catch (e) { return null; }
+}
+
+let currentLang = 'ar';
+function setLang(lang) {
+  currentLang = lang === 'en' ? 'en' : 'ar';
+  const root = document.documentElement;
+  root.lang = currentLang;
+  root.dir = currentLang === 'en' ? 'ltr' : 'rtl';
+  i18nEls.forEach(el => {
+    const key = el.dataset.i18n;
+    el.innerHTML = (currentLang === 'en' && EN[key]) ? EN[key] : el.dataset.ar;
+  });
+  document.getElementById('langToggle').textContent = currentLang === 'en' ? 'عربي' : 'EN';
+  const msg = document.getElementById('waitlistMsg');
+  msg.textContent = ''; msg.className = 'cta-msg';
+  store(false, currentLang);
+}
+
+// Order: ?lang=en in the link → last choice on this device → Arabic
+const params = new URLSearchParams(location.search);
+setLang(params.get('lang') || store(true) || 'ar');
+document.getElementById('langToggle').addEventListener('click', () => setLang(currentLang === 'en' ? 'ar' : 'en'));
+
+/* ── Waitlist signup ── */
+const form = document.getElementById('waitlistForm');
+const emailInput = document.getElementById('waitlistEmail');
+const btn = document.getElementById('waitlistBtn');
+const msgEl = document.getElementById('waitlistMsg');
+
+function showMsg(type) {
+  msgEl.textContent = MSG[currentLang][type];
+  msgEl.className = 'cta-msg' + (type === 'ok' || type === 'dup' ? ' ok' : type === 'wait' ? '' : ' err');
+}
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const email = emailInput.value.trim().toLowerCase();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    emailInput.style.borderColor = '#E74C3C';
+    setTimeout(() => emailInput.style.borderColor = '', 1200);
+    showMsg('bad');
+    return;
+  }
+  btn.disabled = true; showMsg('wait');
+  try {
+    const res = await fetch(SUPABASE_URL.replace(/\/$/, '') + '/rest/v1/waitlist', {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal',
+      },
+      body: JSON.stringify({
+        email,
+        lang: currentLang,
+        // where they came from, e.g. wathifti.com/?utm_source=tiktok
+        source: params.get('utm_source') || params.get('ref') || null,
+        referrer: document.referrer || null,
+      }),
+    });
+    if (res.ok) { showMsg('ok'); emailInput.value = ''; }
+    else if (res.status === 409) { showMsg('dup'); emailInput.value = ''; }
+    else { showMsg('err'); }
+  } catch (err) {
+    showMsg('err');
+  } finally {
+    btn.disabled = false;
+  }
+});
+
+/* ── Nav background on scroll ── */
+window.addEventListener('scroll', () => {
+  document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 50);
+});
+
+/* ── Scroll reveal ── */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(r => observer.observe(r));
+
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
